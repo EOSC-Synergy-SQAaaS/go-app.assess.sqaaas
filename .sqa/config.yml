@@ -1,0 +1,58 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.2
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/maxence-charriere/go-app:
+      branch: master
+      repo: https://github.com/maxence-charriere/go-app
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/maxence-charriere/go-app git:
+        commands:
+        - /usr/bin/env sh .sqa/script.snappy-wheat-lynx.sh
+        container: qc.acc_chummy-cinnabar-hummingbird
+  QC.Doc:
+    repos:
+      github.com/maxence-charriere/go-app find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.gamy-platinum-moose.sh
+        container: qc.doc_hazy-copper-wildebeest
+      github.com/maxence-charriere/go-app git:
+        commands:
+        - /usr/bin/env sh .sqa/script.geeky-taupe-starfish.sh
+        container: qc.doc_sunny-champagne-argentino
+      github.com/maxence-charriere/go-app markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.queasy-pink-cassowary.sh
+        container: qc.doc_tasty-gold-monster
+  QC.Lic:
+    repos:
+      github.com/maxence-charriere/go-app licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.jumpy-ruby-fox.sh
+        container: qc.lic_zippy-salmon-gar
+  QC.Sec:
+    repos:
+      github.com/maxence-charriere/go-app gosec:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-tan-loon.sh
+        container: qc.sec_snippy-fuchsia-axolotl
+  QC.Sty:
+    repos:
+      github.com/maxence-charriere/go-app staticcheck:
+        commands:
+        - /usr/bin/env sh .sqa/script.frumpy-amber-paradise.sh
+        container: qc.sty_gloppy-lilac-skunk
+  QC.Ver:
+    repos:
+      github.com/maxence-charriere/go-app get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.seedy-peach-setter.sh
+        container: qc.ver_squeaky-chestnut-cow
+timeout: 1800
